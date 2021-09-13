@@ -13,31 +13,40 @@
 
 </head>
 
-<body>
-    <div>
-        <input type="color" name="" id="colorLapiz">
-        <input type="range" name="" id="grosorLapiz" min="1" max="10" value="1">
-    </div>
-    <input class="btn btn-outline-info" id="imgElegida" type="file" accept="image/png, image/jpeg" />
+<body class="fondo">
+    <input id="imgElegida" type="file" accept="image/png, image/jpeg" />
     <div class="encabezado">
-        <button class="btn btn-outline-info" id="lapiz">Lapiz</button>
-        <button class="btn btn-outline-info" id="goma">Goma</button>
-        <button class="btn btn-outline-info" id="cargarImg">Cargar imagen</button>
-        <button class="btn btn-outline-info">Descargar</button>
-        <button class="btn btn-outline-info">Retroceder</button>
-        <button class="btn btn-outline-info">Resetear</button>
+        <button class="boton" id="lapiz"><span class="icono icon-brush"></span></button>
+        <button class="boton" id="goma"><span class="icono icon-eraser"></button>
+        <button class="boton" id="cargarImg"><span class="icono icon-document-upload"></button>
+        <button class="boton guardar"><span class="icono icon-inbox-download"></button>
+        <button class="boton"><span class="icono icon-document-edit"></button>
+        <button class="boton">
+            <h6>Filtro</h6>
+        </button>
+
     </div>
-    <label for="filtro">Filtros</label>
-    <select name="filtro" id="tipoFiltro">
-        <option value="escalaGrises">Escala grises</option>
-        <option value="binario">Binarisacion</option>
-        <option value="binarioInverso">Binarisacion inversa</option>
-        <option value="negativo">Negativo</option>
-        <option value="sepia">Sepia</option>
-        <option value="BLUR">BLUR</option>
-    </select>
+    <div class="herramientasFuncion">
+        <div>
+            <input type="color" name="" id="colorLapiz">
+            <input type="range" name="" id="grosorLapiz" min="1" max="10" value="1">
+            <input type="range" name="" id="CantidadSaturado" min="1" max="5" value="1">
+            <input type="range" name="" id="CantidadBlur" min="1" max="5" value="1">
+        </div>
+        <div>
+            <select class="form-select" name="filtro" id="tipoFiltro">
+                <option value="escalaGrises">Escala grises</option>
+                <option value="binario">Binarisacion</option>
+                <option value="binarioInverso">Binarisacion inversa</option>
+                <option value="negativo">Negativo</option>
+                <option value="sepia">Sepia</option>
+                <option value="blur">BLUR</option>
+                <option value="Saturado">Saturado</option>
+            </select>
+        </div>
+    </div>
     <div class="contenedor">
-        <canvas id="miCanvas" width="1100" height="600"></canvas>
+        <canvas id="miCanvas" width="1100" height="500"></canvas>
     </div>
 
 
