@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba canvas</title>
+    <link rel="stylesheet" href="css/canvas.css" media="">
+    <link rel="stylesheet" href="css/fonts/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <div>
+        <input type="color" name="" id="colorLapiz">
+        <input type="range" name="" id="grosorLapiz" min="1" max="10" value="1">
+    </div>
+    <input class="btn btn-outline-info" id="imgElegida" type="file" accept="image/png, image/jpeg" />
+    <div class="encabezado">
+        <button class="btn btn-outline-info" id="lapiz">Lapiz</button>
+        <button class="btn btn-outline-info" id="goma">Goma</button>
+        <button class="btn btn-outline-info" id="cargarImg">Cargar imagen</button>
+        <button class="btn btn-outline-info">Descargar</button>
+        <button class="btn btn-outline-info">Retroceder</button>
+        <button class="btn btn-outline-info">Resetear</button>
+    </div>
+    <label for="filtro">Filtros</label>
+    <select name="filtro" id="tipoFiltro">
+        <option value="escalaGrises">Escala grises</option>
+        <option value="binario">Binarisacion</option>
+        <option value="binarioInverso">Binarisacion inversa</option>
+        <option value="negativo">Negativo</option>
+        <option value="sepia">Sepia</option>
+        <option value="BLUR">BLUR</option>
+    </select>
+    <div class="contenedor">
+        <canvas id="miCanvas" width="1100" height="600"></canvas>
+    </div>
+
+
+    <script src="js/canvas.js"></script>
+</body>
+
+</html>
