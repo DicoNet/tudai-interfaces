@@ -15,14 +15,16 @@
     margin-right: 150px;
     background-color: white;
 }
-.encabezado{
+
+.herrramientas{
     display: flex;
     flex-direction: row;
-    align-items: initial;
-    margin-left: 200px;
+    align-items: center;
+    margin-top: 35px;
+    margin-left: 550px;
     margin-right: 150px;
     min-height: 60px;
-    max-width: 800px;
+    max-width: 335px;
     margin-bottom: 5px;
     background-color: teal;
     border-radius: 12px;
@@ -32,10 +34,10 @@
     display: none;
 }
 .herramientasFuncion{
-
     margin-bottom: 10px;
     margin-top: 10px;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     margin-left: 200px;
     margin-right: 150px;
@@ -47,11 +49,18 @@
 }
 .boton, button:hover{
     color: white;
-
     cursor: pointer;
 }
 .icono{
     padding: 5px;
     font-size: xx-large;
     background-color: teal;
+}
+.btnFiltro{
+    font-size: 130%;
+}
+.inputImg{
+    color: transparent;
+    max-width: 350px;
+    display: inline-block;
 }

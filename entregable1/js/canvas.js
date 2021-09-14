@@ -17,6 +17,11 @@ function iniciar() {
 
 
     function dibujando() {
+        document.getElementById("colorLapiz").value = 'black';
+        document.getElementById("colorLapiz").classList.remove("ocultar");
+        let input = document.getElementById("inputsLapiz");
+        ocultarInput(input);
+
         let dibujando = false;
         let rect = canvas.getBoundingClientRect();
 
@@ -24,8 +29,6 @@ function iniciar() {
         let grosorLapiz = document.getElementById("grosorLapiz");
 
         canvas.addEventListener('mousedown', function (e) {
-            console.log(colorLapiz.value);
-            console.log(grosorLapiz.value);
             x = e.clientX - rect.left;
             y = e.clientY - rect.top;
             dibujando = true;
@@ -58,43 +61,9 @@ function iniciar() {
         }
     }
 
-    /* function borrar(){
-        let dibujando = false;
-        let rect = canvas.getBoundingClientRect();
-    
-        let grosorGoma = document.getElementById("grosorGoma");
-        canvas.addEventListener('mousedown', function (e) {
-            x = e.clientX - rect.left;
-            y = e.clientY - rect.top;
-            dibujando = true;
-        });
-        canvas.addEventListener('mousemove', function (e) {
-            if (dibujando === true) {
-                dibujar(x, y, e.clientX - rect.left, e.clientY - rect.top);
-                x = e.clientX - rect.left;
-                y = e.clientY - rect.top;
-            }
-        });
-        canvas.addEventListener('mouseup', function (e) {
-            if (dibujando === true) {
-                dibujar(x, y, e.clientX - rect.left, e.clientY - rect.top);
-                x = 0;
-                y = 0;
-                dibujando = false;
-            }
-        });
-        function dibujar(x1, y1, x2, y2) {
-            ctx.beginPath();
-            ctx.strokeStyle = 'white';
-            ctx.lineWidth = grosorGoma.value;
-            ctx.moveTo(x1, y1);
-            ctx.lineTo(x2, y2);
-            ctx.stroke();
-            ctx.closePath();
-        }
-    }*/
+
     function borrar() {
-        console.log(document.getElementById("colorLapiz").value);
+        document.getElementById("colorLapiz").classList.add("ocultar");
         document.getElementById("colorLapiz").value = '#ffffff';
     }
     document.getElementById("goma").addEventListener("click", borrar);
@@ -143,10 +112,16 @@ function iniciar() {
     let selectfiltro = document.getElementById("tipoFiltro");
     selectfiltro.addEventListener('click', AplicarFiltro);
 
+    document.getElementById("filtro").addEventListener("click", function () {
+        let input = document.getElementById("tipoFiltro");
+        ocultarInput(input);
+    });
+
     /**
      * Carga la imagen y la muestra en pantalla.
      */
     function AplicarFiltro() {
+
         let imgData = ctx.getImageData(0, 0, width, height);
         switch (selectfiltro.value) {
             case "-": {
@@ -173,10 +148,18 @@ function iniciar() {
                 break;
             }
             case "saturado": {
+                let selectFiltro = document.getElementById("tipoFiltro");
+                let saturado = document.getElementById("CantidadSaturado");
+                ocultarInput(saturado);
+                aparecerInput(selectFiltro);
                 filtroSaturado();
                 break;
             }
             case "blur": {
+                let selectFiltro = document.getElementById("tipoFiltro");
+                let blur = document.getElementById("CantidadBlur");
+                ocultarInput(blur);
+                aparecerInput(selectFiltro);
                 filtroSaturado();
                 break;
             }
@@ -469,7 +452,11 @@ function iniciar() {
     }
     document.querySelector(".guardar").addEventListener("click", guardarFoto);
 
-
+    document.getElementById("cargarImg").addEventListener("click",mostrarElegirImagen);
+    function mostrarElegirImagen(){
+        let inputImg = document.getElementById("imgElegida");
+        ocultarInput(inputImg);
+    }
 
     function getRed(imgData, x, y) {
         let index = 0;
@@ -499,7 +486,17 @@ function iniciar() {
 
     }
 
+    function ocultarInput(input) {
+        document.getElementById("inputsLapiz").classList.add("ocultar");
+        document.getElementById("grosorGomaDeBorrar").classList.add("ocultar");
+        document.getElementById("CantidadSaturado").classList.add("ocultar");
+        document.getElementById("CantidadBlur").classList.add("ocultar");
+        document.getElementById("tipoFiltro").classList.add("ocultar");
+        document.getElementById("imgElegida").classList.add("ocultar");
 
-
-
+        input.classList.remove("ocultar");
+    }
+    function aparecerInput(input) {
+        input.classList.remove("ocultar");
+    }
 }
