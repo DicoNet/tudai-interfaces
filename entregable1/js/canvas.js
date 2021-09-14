@@ -11,16 +11,31 @@ function iniciar() {
     let a = 255;
     let width = canvas.width;
     let height = canvas.height;
-
-    let x = 0;
-    let y = 0;
+    let pinselActivado = false;
 
 
+
+
+    function activarPinsel() {
+        pinselActivado = true;
+    }
+    function desactivarPinsel() {
+        pinselActivado = false;
+    }
+
+
+    /**
+     * Permite dibujar en el canvas con los eventos mousedown, mousemove, mouseup
+     */
     function dibujando() {
-        document.getElementById("colorLapiz").value = 'black';
+        activarPinsel();
+
         document.getElementById("colorLapiz").classList.remove("ocultar");
-        let input = document.getElementById("inputsLapiz");
-        ocultarInput(input);
+        let inputsLapiz = document.getElementById("inputsLapiz");
+        ocultarInput(inputsLapiz);
+
+        let x = 0;
+        let y = 0;
 
         let dibujando = false;
         let rect = canvas.getBoundingClientRect();
@@ -28,26 +43,34 @@ function iniciar() {
         let colorLapiz = document.getElementById("colorLapiz");
         let grosorLapiz = document.getElementById("grosorLapiz");
 
-        canvas.addEventListener('mousedown', function (e) {
-            x = e.clientX - rect.left;
-            y = e.clientY - rect.top;
-            dibujando = true;
-        });
-        canvas.addEventListener('mousemove', function (e) {
-            if (dibujando === true) {
+        canvas.addEventListener('mousedown', maouseApretar);
+        canvas.addEventListener('mousemove', maouseMovimiento);
+        canvas.addEventListener('mouseup', maouseSoltar);
+
+        function maouseApretar(e) {
+            if (pinselActivado == true) {
+                x = e.clientX - rect.left;
+                y = e.clientY - rect.top;
+                dibujando = true;
+            }
+            else { return; }
+        };
+        function maouseMovimiento(e) {
+            if (dibujando === true && pinselActivado == true) {
                 dibujar(x, y, e.clientX - rect.left, e.clientY - rect.top);
                 x = e.clientX - rect.left;
                 y = e.clientY - rect.top;
-            }
-        });
-        canvas.addEventListener('mouseup', function (e) {
-            if (dibujando === true) {
+            } else { return; }
+        };
+        function maouseSoltar(e) {
+            if (dibujando === true && pinselActivado == true) {
                 dibujar(x, y, e.clientX - rect.left, e.clientY - rect.top);
                 x = 0;
                 y = 0;
                 dibujando = false;
-            }
-        });
+            } else { return; }
+        };
+
 
         function dibujar(x1, y1, x2, y2) {
             ctx.beginPath();
@@ -61,20 +84,29 @@ function iniciar() {
         }
     }
 
-
+    document.getElementById("lapiz").addEventListener("click", function () {
+        document.getElementById("colorLapiz").value = 'black';
+    });
+    document.getElementById("lapiz").addEventListener("click", dibujando);
+    /**
+     * Cambia el color del pincel en blanco, oculta la eleccion de color y muestra la barra de tamaño.
+     */
     function borrar() {
-        document.getElementById("colorLapiz").classList.add("ocultar");
+        activarPinsel();
         document.getElementById("colorLapiz").value = '#ffffff';
+        document.getElementById("inputsLapiz").classList.remove("ocultar");
+        document.getElementById("colorLapiz").classList.add("ocultar");
+        dibujando();
     }
     document.getElementById("goma").addEventListener("click", borrar);
-    document.getElementById("lapiz").addEventListener("click", dibujando);
 
-    document.getElementById("imgElegida").addEventListener('change', cargarFoto);
+
     /**
      * Cargo la foto al canvas y aplico el filtro correspondiente.
      * @param {} e 
      */
     function cargarFoto(e) {
+        desactivarPinsel();
         if (document.getElementById("imgElegida").value != "") {
             //Resetear el canvas o a lo sumo ponerlo todo en blanco
 
@@ -108,6 +140,7 @@ function iniciar() {
             document.getElementById("imgElegida").value = "";
         }
     }
+    document.getElementById("imgElegida").addEventListener('change', cargarFoto);
 
     let selectfiltro = document.getElementById("tipoFiltro");
     selectfiltro.addEventListener('click', AplicarFiltro);
@@ -121,7 +154,7 @@ function iniciar() {
      * Carga la imagen y la muestra en pantalla.
      */
     function AplicarFiltro() {
-
+        desactivarPinsel();
         let imgData = ctx.getImageData(0, 0, width, height);
         switch (selectfiltro.value) {
             case "-": {
@@ -171,13 +204,6 @@ function iniciar() {
 
     }
 
-    //imagen();
-    //let imgData = ctx.createImageData(width, height);
-
-    // rectanguloGradiante(imgData, a);
-    // ctx.putImageData(imgData, x, y) * 4;
-
-
     /**
      * Convierte la imagen en una imagen de escala de grises.
      */
@@ -206,7 +232,9 @@ function iniciar() {
             }
         }
     }
-
+    /**
+     * Convierte los pixel del cambas a nogro o blanco segun el promedio de los rgb de cada uno.
+     */
     function filtroBinario(imgData, a) {
 
         for (let x = 0; x < width; x++) {
@@ -226,6 +254,9 @@ function iniciar() {
             }
         }
     }
+    /**
+     * Invierte el valor blanco y negro de los pixel que la funcion filtroBinario 
+     */
     function filtroInvertido(imgData, a) {
 
         for (let x = 0; x < width; x++) {
@@ -452,8 +483,9 @@ function iniciar() {
     }
     document.querySelector(".guardar").addEventListener("click", guardarFoto);
 
-    document.getElementById("cargarImg").addEventListener("click",mostrarElegirImagen);
-    function mostrarElegirImagen(){
+    document.getElementById("cargarImg").addEventListener("click", mostrarElegirImagen);
+    function mostrarElegirImagen() {
+        desactivarPinsel();
         let inputImg = document.getElementById("imgElegida");
         ocultarInput(inputImg);
     }
@@ -474,7 +506,9 @@ function iniciar() {
         return imgData.data[index + 2];
     }
 
-
+    /**
+     * Cambia el rgb del pixel en la ubicacion y con los valores pasados por parametro.
+     */
     function setPixel(imgData, x, y, r, g, b, a) {
 
         let index = 0;
@@ -485,7 +519,9 @@ function iniciar() {
         imgData.data[index + 3] = a;
 
     }
-
+    /**
+     * Agrega la clase ocultar a todos los inputs que no la tengan y se la quita al input pasado por parametro.
+     */
     function ocultarInput(input) {
         document.getElementById("inputsLapiz").classList.add("ocultar");
         document.getElementById("grosorGomaDeBorrar").classList.add("ocultar");
@@ -496,6 +532,9 @@ function iniciar() {
 
         input.classList.remove("ocultar");
     }
+    /**
+     * Quita la clase ocultar al input pasado por parametro.
+    */
     function aparecerInput(input) {
         input.classList.remove("ocultar");
     }
