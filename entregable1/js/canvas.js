@@ -37,6 +37,10 @@ function iniciar() {
         let x = 0;
         let y = 0;
 
+        document.getElementById("colorLapiz").classList.add("custom-cursor");
+        let input = document.getElementById("inputsLapiz");
+        ocultarInput(input);
+
         let dibujando = false;
         let rect = canvas.getBoundingClientRect();
 
@@ -107,6 +111,7 @@ function iniciar() {
      */
     function cargarFoto(e) {
         desactivarPinsel();
+
         if (document.getElementById("imgElegida").value != "") {
             //Resetear el canvas o a lo sumo ponerlo todo en blanco
 
@@ -122,6 +127,7 @@ function iniciar() {
 
                 image.src = content;
                 image.onload = function () {
+                    ReiniciarCanvas();
 
                     width = Math.min(canvas.width / this.width, canvas.height / this.height) * this.width;
                     height = Math.min(canvas.width / this.width, canvas.height / this.height) * this.height;
@@ -132,13 +138,14 @@ function iniciar() {
                     ctx.putImageData(imgData, 0, 0);
                 }
                 function mostrarImagen(imagen) {
-
+                    console.log("te la mostre");
                     ctx.drawImage(imagen, 0, 0, width, height);
                 }
 
             }
-            document.getElementById("imgElegida").value = "";
+            //document.getElementById("imgElegida").value = "";
         }
+        document.getElementById("tipoFiltro").value = "-";
     }
     document.getElementById("imgElegida").addEventListener('change', cargarFoto);
 
@@ -538,4 +545,15 @@ function iniciar() {
     function aparecerInput(input) {
         input.classList.remove("ocultar");
     }
+
+    document.querySelector(".nuevolienzo").addEventListener("click", ReiniciarCanvas);
+
+    function ReiniciarCanvas() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        document.getElementById("tipoFiltro").value = "-";
+
+    }
+
+
+
 }
