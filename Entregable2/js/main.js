@@ -1,6 +1,6 @@
-document.addEventListener("DOMContentLoaded", iniciar);
+document.addEventListener("DOMContentLoaded", onload);
 
-function iniciar() {
+function onload() {
     "use strict"
 
     let canvas = document.getElementById("miCanvas");
@@ -8,6 +8,12 @@ function iniciar() {
     let canvasWidth = canvas.width;
     let canvasHeight = canvas.height;
 
+    let partida = new Partida(canvas.ctx,canvasWidth,canvasHeight);
+
+
+    //partida.iniciarPartida();
+
+    
     const CANT_FIG = 42;
 
     let fichas = [];
@@ -32,7 +38,6 @@ function iniciar() {
       setTimeout(() => {
           addFiguras();
       }, 333);*/
-
 
 
 
