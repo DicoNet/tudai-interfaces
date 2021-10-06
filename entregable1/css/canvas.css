@@ -10,11 +10,16 @@
 }
 .contenedor{
     position: relative;
-    max-width: 1100;
-    max-height: 500;
-    margin-left: 15%;
+    max-width: 1100px;
+    max-height: 500px;
+    margin-left: 20%;
     margin-right: 12%;
     background-color: white;
+}
+.Aviso{
+    position: relative;
+    margin-left: 35%;
+
 }
 
 .herrramientas{
@@ -65,7 +70,3 @@
     max-width: 350px;
     display: inline-block;
 }
-.custom-cursor {
-    cursor: url("../img/lapiz.png"),
-      pointer;
-  }

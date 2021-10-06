@@ -137,8 +137,7 @@ function iniciar() {
 
                     ctx.putImageData(imgData, 0, 0);
                 }
-                function mostrarImagen(imagen) {
-                    console.log("te la mostre");
+                function mostrarImagen(imagen) {                 
                     ctx.drawImage(imagen, 0, 0, width, height);
                 }
 
@@ -225,6 +224,7 @@ function iniciar() {
                 setPixel(imgData, x, y, gris, gris, gris, a);
             }
         }
+        document.getElementById("tipoFiltro").value = "-";
     }
 
     function filtroNegativo(imgData, a) {
@@ -238,6 +238,7 @@ function iniciar() {
                 setPixel(imgData, x, y, color1, color2, color3, a);
             }
         }
+        document.getElementById("tipoFiltro").value = "-";
     }
     /**
      * Convierte los pixel del cambas a nogro o blanco segun el promedio de los rgb de cada uno.
@@ -260,6 +261,7 @@ function iniciar() {
                 setPixel(imgData, x, y, tono, tono, tono, a);
             }
         }
+        document.getElementById("tipoFiltro").value = "-";
     }
     /**
      * Invierte el valor blanco y negro de los pixel que la funcion filtroBinario 
@@ -282,6 +284,7 @@ function iniciar() {
                 setPixel(imgData, x, y, tono, tono, tono, a);
             }
         }
+        document.getElementById("tipoFiltro").value = "-";
     }
 
     function FiltroSepia(ImgData) {
@@ -295,6 +298,7 @@ function iniciar() {
             }
         }
         ctx.putImageData(ImgData, 0, 0);
+        document.getElementById("tipoFiltro").value = "-";
     }
     //<-------------------------------------------<FILTROS AVANZADOS>------------------------------------------------------>
     document.getElementById("CantidadBlur").addEventListener("change", filtroBlur);
